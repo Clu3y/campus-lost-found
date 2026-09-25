@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>校园失物招领 · 我的发布</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          coral: {
+            50: '#FFF7F5',
+            100: '#FDECE8',
+            200: '#F9D4CC',
+            300: '#F2B3A7',
+            400: '#EC9686',
+            500: '#E37D6C',
+            600: '#C96351',
+            700: '#A24B3C',
+            800: '#7A382D',
+            900: '#54261E'
+          },
+          ink: {
+            900: '#332C2A',
+            700: '#5C514D',
+            500: '#8A7C77',
+            300: '#BEB2AD'
+          }
+        },
+        borderRadius: {
+          card: '12px'
+        },
+        boxShadow: {
+          soft: '0 4px 16px rgba(214, 160, 148, 0.14)',
+          softer: '0 2px 8px rgba(214, 160, 148, 0.10)'
+        }
+      }
+    }
+  };
+</script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; }
+</style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-neutral-100 text-ink-900">
+<div class="w-full h-full max-w-[393px] max-h-[852px] bg-coral-50 flex flex-col overflow-hidden relative shadow-xl">
+<!-- 顶部栏 -->
+<header class="shrink-0 bg-white px-5 pt-5 pb-4 border-b border-coral-100">
+<div class="flex items-center gap-3">
+<a class="w-8 h-8 rounded-full bg-coral-50 flex items-center justify-center shrink-0" href="home.html">
+<iconify-icon class="text-ink-700" icon="solar:alt-arrow-left-linear" width="18"></iconify-icon>
+</a>
+<div>
+<h1 class="text-[16px] font-semibold">我的发布</h1>
+<p class="mt-0.5 text-[11px] text-ink-500">仅本人可修改自己信息的状态</p>
+</div>
+<a class="ml-auto rounded-full bg-coral-500 px-3.5 py-2 text-[12px] font-medium text-white shrink-0" href="publish.html">
+        发布新信息
+      </a>
+</div>
+<!-- 概览 -->
+<div class="mt-3.5 grid grid-cols-3 gap-2.5">
+<div class="rounded-card bg-coral-50 px-3 py-2.5 text-center">
+<p class="text-[18px] font-bold text-coral-600" id="statTotal">4</p>
+<p class="text-[10.5px] text-ink-500">共发布</p>
+</div>
+<div class="rounded-card bg-coral-50 px-3 py-2.5 text-center">
+<p class="text-[18px] font-bold text-amber-600" id="statOngoing">2</p>
+<p class="text-[10.5px] text-ink-500">进行中</p>
+</div>
+<div class="rounded-card bg-coral-50 px-3 py-2.5 text-center">
+<p class="text-[18px] font-bold text-emerald-600" id="statClosed">2</p>
+<p class="text-[10.5px] text-ink-500">已结束</p>
+</div>
+</div>
+<!-- 筛选 -->
+<div class="mt-3 flex gap-2">
+<button class="scope-btn rounded-full px-3.5 py-1.5 text-[12px] font-medium transition" data-scope="all" onclick="setScope('all')" type="button">全部</button>
+<button class="scope-btn rounded-full px-3.5 py-1.5 text-[12px] font-medium transition" data-scope="ongoing" onclick="setScope('ongoing')" type="button">进行中</button>
+<button class="scope-btn rounded-full px-3.5 py-1.5 text-[12px] font-medium transition" data-scope="closed" onclick="setScope('closed')" type="button">已结束</button>
+</div>
+</header>
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
+<section class="px-5 pt-3.5 pb-6 space-y-3" id="postList">
+<!-- 我的发布 1：寻物 · 寻找中 -->
+<div class="post-card rounded-card bg-white shadow-softer overflow-hidden" data-end-label="已找回" data-id="1" data-state="ongoing">
+<div class="p-3.5">
+<div class="flex gap-3">
+<div class="relative w-[76px] h-[76px] shrink-0 rounded-[10px] overflow-hidden bg-gradient-to-br from-coral-100 via-coral-200 to-coral-300 flex items-center justify-center">
+<iconify-icon class="text-coral-700/70" icon="solar:card-2-linear" width="28"></iconify-icon>
+<img alt="Student ID card found near the library entrance" class="absolute inset-0 w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-09-25/820eb329c822409da7dbf17d2fcefebf.jpg"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<span class="rounded-full bg-coral-100 text-coral-700 px-2 py-0.5 text-[10px] font-medium">失物</span>
+<span class="status-badge rounded-full bg-amber-50 text-amber-600 px-2 py-0.5 text-[10px] font-medium">寻找中</span>
+<span class="ml-auto text-[10px] text-ink-300">09-25 12:36</span>
+</div>
+<h3 class="mt-1.5 text-[13.5px] font-semibold truncate">校园卡（姓名首字为“林”）</h3>
+<p class="mt-1 text-[11px] text-ink-500 truncate">图书馆 · 二楼自习区 A-12 附近</p>
+<p class="mt-0.5 text-[11px] text-ink-300">已有 3 人查看</p>
+</div>
+</div>
+<div class="mt-3 flex gap-2.5">
+<a class="flex-1 rounded-[10px] border border-coral-200 py-2.5 text-[12.5px] font-medium text-coral-600 text-center" href="detail.html?id=1">
+              查看详情
+            </a>
+<button class="flex-1 rounded-[10px] bg-coral-500 py-2.5 text-[12.5px] font-semibold text-white" onclick="openStatusSheet(this)" type="button">
+              更新状态
+            </button>
+</div>
+<p class="mt-2 text-[10.5px] text-coral-600 hidden feedback">状态已更新，感谢你的及时反馈！</p>
+</div>
+</div>
+<!-- 我的发布 2：招领 · 待认领 -->
+<div class="post-card rounded-card bg-white shadow-softer overflow-hidden" data-end-label="已归还" data-id="2" data-state="ongoing">
+<div class="p-3.5">
+<div class="flex gap-3">
+<div class="relative w-[76px] h-[76px] shrink-0 rounded-[10px] overflow-hidden bg-gradient-to-br from-coral-100 via-coral-200 to-coral-300 flex items-center justify-center">
+<iconify-icon class="text-coral-700/70" icon="solar:key-linear" width="28"></iconify-icon>
+<img alt="A bunch of keys with a small bear keychain" class="absolute inset-0 w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-09-25/ced0560719f047d3bf751043ba8a7b60.jpg"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<span class="rounded-full bg-emerald-50 text-emerald-600 px-2 py-0.5 text-[10px] font-medium">招领</span>
+<span class="status-badge rounded-full bg-sky-50 text-sky-600 px-2 py-0.5 text-[10px] font-medium">待认领</span>
+<span class="ml-auto text-[10px] text-ink-300">09-25 08:20</span>
+</div>
+<h3 class="mt-1.5 text-[13.5px] font-semibold truncate">一串钥匙（带小熊挂件）</h3>
+<p class="mt-1 text-[11px] text-ink-500 truncate">第三教学楼 · 302 教室</p>
+<p class="mt-0.5 text-[11px] text-ink-300">已有 7 人查看</p>
+</div>
+</div>
+<div class="mt-3 flex gap-2.5">
+<a class="flex-1 rounded-[10px] border border-coral-200 py-2.5 text-[12.5px] font-medium text-coral-600 text-center" href="detail.html?id=2">
+              查看详情
+            </a>
+<button class="flex-1 rounded-[10px] bg-coral-500 py-2.5 text-[12.5px] font-semibold text-white" onclick="openStatusSheet(this)" type="button">
+              更新状态
+            </button>
+</div>
+<p class="mt-2 text-[10.5px] text-coral-600 hidden feedback">状态已更新，感谢你的及时反馈！</p>
+</div>
+</div>
+<!-- 我的发布 3：寻物 · 已找回 -->
+<div class="post-card rounded-card bg-white shadow-softer overflow-hidden" data-end-label="已找回" data-id="5" data-state="closed">
+<div class="p-3.5">
+<div class="flex gap-3">
+<div class="relative w-[76px] h-[76px] shrink-0 rounded-[10px] overflow-hidden bg-gradient-to-br from-coral-100 via-coral-200 to-coral-300 flex items-center justify-center">
+<iconify-icon class="text-coral-700/70" icon="solar:notebook-linear" width="28"></iconify-icon>
+<img alt="A brown leather notebook with a pen attached" class="absolute inset-0 w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-09-25/95f85d4cd3c24736bab36788f53a7687.jpg"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<span class="rounded-full bg-coral-100 text-coral-700 px-2 py-0.5 text-[10px] font-medium">失物</span>
+<span class="status-badge rounded-full bg-emerald-50 text-emerald-600 px-2 py-0.5 text-[10px] font-medium">已找回</span>
+<span class="ml-auto text-[10px] text-ink-300">09-23 15:40</span>
+</div>
+<h3 class="mt-1.5 text-[13.5px] font-semibold truncate">棕色皮面笔记本</h3>
+<p class="mt-1 text-[11px] text-ink-500 truncate">第一教学楼 · 阶梯教室 101</p>
+<p class="mt-0.5 text-[11px] text-emerald-600">已结束 · 与拾到者在一教门口完成交接</p>
+</div>
+</div>
+<div class="mt-3 flex gap-2.5">
+<a class="flex-1 rounded-[10px] border border-coral-200 py-2.5 text-[12.5px] font-medium text-coral-600 text-center" href="detail.html?id=5">
+              查看详情
+            </a>
+<button class="flex-1 rounded-[10px] bg-coral-50 py-2.5 text-[12.5px] font-medium text-ink-500" onclick="openStatusSheet(this)" type="button">
+              更新状态
+            </button>
+</div>
+<p class="mt-2 text-[10.5px] text-coral-600 hidden feedback">状态已更新，感谢你的及时反馈！</p>
+</div>
+</div>
+<!-- 我的发布 4：招领 · 已归还 -->
+<div class="post-card rounded-card bg-white shadow-softer overflow-hidden" data-end-label="已归还" data-id="6" data-state="closed">
+<div class="p-3.5">
+<div class="flex gap-3">
+<div class="relative w-[76px] h-[76px] shrink-0 rounded-[10px] overflow-hidden bg-gradient-to-br from-coral-100 via-coral-200 to-coral-300 flex items-center justify-center">
+<iconify-icon class="text-coral-700/70" icon="solar:bag-4-linear" width="28"></iconify-icon>
+<img alt="A beige canvas tote bag on a bench" class="absolute inset-0 w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-09-25/2c39300f991e4deb9f4a67eb78d5f8fc.jpg"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<span class="rounded-full bg-emerald-50 text-emerald-600 px-2 py-0.5 text-[10px] font-medium">招领</span>
+<span class="status-badge rounded-full bg-neutral-100 text-ink-500 px-2 py-0.5 text-[10px] font-medium">已归还</span>
+<span class="ml-auto text-[10px] text-ink-300">09-22 20:05</span>
+</div>
+<h3 class="mt-1.5 text-[13.5px] font-semibold truncate">米色帆布托特包</h3>
+<p class="mt-1 text-[11px] text-ink-500 truncate">宿舍 6 号楼 · 门口长椅</p>
+<p class="mt-0.5 text-[11px] text-emerald-600">已结束 · 失主已当面领回</p>
+</div>
+</div>
+<div class="mt-3 flex gap-2.5">
+<a class="flex-1 rounded-[10px] border border-coral-200 py-2.5 text-[12.5px] font-medium text-coral-600 text-center" href="detail.html?id=6">
+              查看详情
+            </a>
+<button class="flex-1 rounded-[10px] bg-coral-50 py-2.5 text-[12.5px] font-medium text-ink-500" onclick="openStatusSheet(this)" type="button">
+              更新状态
+            </button>
+</div>
+<p class="mt-2 text-[10.5px] text-coral-600 hidden feedback">状态已更新，感谢你的及时反馈！</p>
+</div>
+</div>
+</section>
+<!-- 空状态 -->
+<section class="hidden px-5 pb-8 pt-4" id="emptyState">
+<div class="rounded-card bg-white shadow-softer px-6 py-10 text-center">
+<span class="w-16 h-16 mx-auto rounded-full bg-coral-50 flex items-center justify-center">
+<iconify-icon class="text-coral-400" icon="solar:clipboard-list-linear" width="28"></iconify-icon>
+</span>
+<h3 class="mt-3.5 text-[15px] font-semibold">这个分类下还没有信息</h3>
+<p class="mt-2 text-[12px] leading-relaxed text-ink-500">切换到“全部”查看，或者发布一条新的失物 / 招领信息。</p>
+<a class="mt-4 inline-block rounded-card bg-coral-500 px-5 py-2.5 text-[13px] font-semibold text-white" href="publish.html">去发布</a>
+</div>
+</section>
+<!-- 规则说明 -->
+<section class="px-5 pb-6">
+<div class="rounded-card bg-white border border-coral-100 px-4 py-3.5 flex gap-2.5">
+<iconify-icon class="text-coral-500 mt-0.5 shrink-0" icon="solar:info-circle-linear" width="16"></iconify-icon>
+<p class="text-[11px] leading-relaxed text-ink-700">
+          状态说明：寻物信息的结束状态为“已找回”，招领信息的结束状态为“已归还”。结束后的信息仍可查看，但会显著标注，避免同学继续联系造成打扰。
+        </p>
+</div>
+</section>
+</main>
+<!-- 状态更新弹层 -->
+<div class="hidden absolute inset-0 z-30 items-end justify-center bg-black/40" id="statusModal" onclick="closeStatusSheet(event)">
+<div class="w-full rounded-t-[16px] bg-white px-5 pt-5 pb-6" onclick="event.stopPropagation()">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="text-[16px] font-semibold">更新信息状态</h3>
+<p class="mt-1 text-[11px] text-ink-500" id="sheetItemName">校园卡（姓名首字为“林”）</p>
+</div>
+<button class="w-7 h-7 rounded-full bg-coral-50 flex items-center justify-center" onclick="closeStatusSheet()" type="button">
+<iconify-icon class="text-ink-500" icon="solar:close-circle-linear" width="17"></iconify-icon>
+</button>
+</div>
+<div class="mt-4 space-y-2.5">
+<button class="w-full rounded-card border border-coral-100 px-4 py-3.5 text-left flex items-center gap-3" onclick="applyStatus('start')" type="button">
+<span class="w-9 h-9 rounded-full bg-amber-50 flex items-center justify-center shrink-0">
+<iconify-icon class="text-amber-600" icon="solar:hourglass-line-linear" width="17"></iconify-icon>
+</span>
+<span>
+<span class="block text-[13.5px] font-medium" id="startLabel">保持寻找中</span>
+<span class="block text-[11px] text-ink-500">信息仍会出现在首页列表中</span>
+</span>
+</button>
+<button class="w-full rounded-card border border-coral-300 bg-coral-50 px-4 py-3.5 text-left flex items-center gap-3" onclick="applyStatus('end')" type="button">
+<span class="w-9 h-9 rounded-full bg-white flex items-center justify-center shrink-0">
+<iconify-icon class="text-coral-600" icon="solar:check-circle-linear" width="17"></iconify-icon>
+</span>
+<span>
+<span class="block text-[13.5px] font-semibold text-coral-700" id="endLabel">标记为已找回</span>
+<span class="block text-[11px] text-coral-600">信息将显著标注，避免继续被打扰</span>
+</span>
+</button>
+</div>
+<p class="mt-3 text-[11px] leading-relaxed text-ink-500">
+        只有发布者本人可以修改状态；原型演示中仅支持从初始状态变更为结束状态。
+      </p>
+</div>
+</div>
+<!-- 底部导航 -->
+<nav class="shrink-0 bg-white border-t border-coral-100 px-2 pt-2 pb-3">
+<div class="grid grid-cols-4">
+<a class="flex flex-col items-center gap-1 py-1" href="home.html">
+<iconify-icon class="text-ink-300" icon="solar:home-smile-linear" width="21"></iconify-icon>
+<span class="text-[10px] text-ink-500">首页</span>
+</a>
+<a class="flex flex-col items-center gap-1 py-1" href="search.html">
+<iconify-icon class="text-ink-300" icon="solar:magnifer-linear" width="21"></iconify-icon>
+<span class="text-[10px] text-ink-500">搜索</span>
+</a>
+<a class="flex flex-col items-center gap-1 py-1" href="publish.html">
+<iconify-icon class="text-ink-300" icon="solar:add-circle-linear" width="21"></iconify-icon>
+<span class="text-[10px] text-ink-500">发布</span>
+</a>
+<a class="flex flex-col items-center gap-1 py-1" href="my-posts.html">
+<iconify-icon class="text-coral-500" icon="solar:user-circle-bold" width="21"></iconify-icon>
+<span class="text-[10px] font-medium text-coral-500">我的</span>
+</a>
+</div>
+</nav>
+</div>
+<script>
+  var scope = 'all';
+  var activeCard = null;
+
+  function applyScope() {
+    var cards = document.querySelectorAll('.post-card');
+    var visible = 0;
+    var ongoing = 0;
+    var closed = 0;
+
+    cards.forEach(function (card) {
+      var state = card.getAttribute('data-state');
+      if (state === 'ongoing') { ongoing++; } else { closed++; }
+
+      var match = scope === 'all' || state === scope;
+      if (match) {
+        card.classList.remove('hidden');
+        visible++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    document.getElementById('emptyState').classList.toggle('hidden', visible !== 0);
+    document.getElementById('statTotal').textContent = String(cards.length);
+    document.getElementById('statOngoing').textContent = String(ongoing);
+    document.getElementById('statClosed').textContent = String(closed);
+
+    document.querySelectorAll('.scope-btn').forEach(function (btn) {
+      var active = btn.getAttribute('data-scope') === scope;
+      if (active) {
+        btn.classList.add('bg-coral-500', 'text-white');
+        btn.classList.remove('bg-white', 'text-ink-500');
+      } else {
+        btn.classList.remove('bg-coral-500', 'text-white');
+        btn.classList.add('bg-white', 'text-ink-500');
+      }
+    });
+  }
+
+  function setScope(next) {
+    scope = next;
+    applyScope();
+  }
+
+  function openStatusSheet(button) {
+    activeCard = button.closest('.post-card');
+    var name = activeCard.querySelector('h3').textContent;
+    var endLabel = activeCard.getAttribute('data-end-label');
+    var state = activeCard.getAttribute('data-state');
+
+    document.getElementById('sheetItemName').textContent = name;
+    document.getElementById('endLabel').textContent = '标记为' + endLabel;
+    document.getElementById('startLabel').textContent = endLabel === '已归还' ? '保持待认领' : '保持寻找中';
+
+    if (state === 'closed') {
+      document.getElementById('endLabel').textContent = endLabel + '（已更新，可再次确认）';
+    }
+
+    var modal = document.getElementById('statusModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function closeStatusSheet(event) {
+    if (event && event.target !== event.currentTarget) {
+      return;
+    }
+    var modal = document.getElementById('statusModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+
+  function applyStatus(action) {
+    if (!activeCard) {
+      return;
+    }
+
+    var endLabel = activeCard.getAttribute('data-end-label');
+    var badge = activeCard.querySelector('.status-badge');
+    var feedback = activeCard.querySelector('.feedback');
+
+    if (action === 'end') {
+      badge.textContent = endLabel;
+      badge.className = 'status-badge rounded-full bg-emerald-50 text-emerald-600 px-2 py-0.5 text-[10px] font-medium';
+      activeCard.setAttribute('data-state', 'closed');
+      if (scope === 'ongoing') {
+        activeCard.classList.add('hidden');
+      }
+      feedback.textContent = '已将状态更新为“' + endLabel + '”，信息已显著标注。';
+    } else {
+      badge.textContent = endLabel === '已归还' ? '待认领' : '寻找中';
+      badge.className = 'status-badge rounded-full bg-sky-50 text-sky-600 px-2 py-0.5 text-[10px] font-medium';
+      activeCard.setAttribute('data-state', 'ongoing');
+      if (scope === 'closed') {
+        activeCard.classList.add('hidden');
+      }
+      feedback.textContent = '状态已保持为进行中，信息继续在首页展示。';
+    }
+
+    feedback.classList.remove('hidden');
+    closeStatusSheet();
+    applyScope();
+  }
+
+  applyScope();
+</script>
+</body>
+</html>

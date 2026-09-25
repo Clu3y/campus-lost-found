@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>校园失物招领 · 搜索</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          coral: {
+            50: '#FFF7F5',
+            100: '#FDECE8',
+            200: '#F9D4CC',
+            300: '#F2B3A7',
+            400: '#EC9686',
+            500: '#E37D6C',
+            600: '#C96351',
+            700: '#A24B3C',
+            800: '#7A382D',
+            900: '#54261E'
+          },
+          ink: {
+            900: '#332C2A',
+            700: '#5C514D',
+            500: '#8A7C77',
+            300: '#BEB2AD'
+          }
+        },
+        borderRadius: {
+          card: '12px'
+        },
+        boxShadow: {
+          soft: '0 4px 16px rgba(214, 160, 148, 0.14)',
+          softer: '0 2px 8px rgba(214, 160, 148, 0.10)'
+        }
+      }
+    }
+  };
+</script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; }
+</style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-neutral-100 text-ink-900">
+<div class="w-full h-full max-w-[393px] max-h-[852px] bg-coral-50 flex flex-col overflow-hidden relative shadow-xl">
+<!-- 顶部导航 + 搜索框 -->
+<header class="shrink-0 bg-white px-4 pt-4 pb-3 border-b border-coral-100">
+<div class="flex items-center gap-3">
+<a class="w-8 h-8 rounded-full bg-coral-50 flex items-center justify-center shrink-0" href="home.html">
+<iconify-icon class="text-ink-700" icon="solar:alt-arrow-left-linear" width="18"></iconify-icon>
+</a>
+<div class="flex-1 flex items-center gap-2 rounded-card bg-coral-50 border border-coral-100 px-3 py-2.5">
+<iconify-icon class="text-coral-500 shrink-0" icon="solar:magnifer-linear" width="16"></iconify-icon>
+<input class="flex-1 bg-transparent text-[13px] text-ink-900 placeholder:text-ink-300 outline-none" id="keyword" placeholder="搜索物品名称、地点或描述" type="text" value="校园卡"/>
+<button class="w-5 h-5 rounded-full bg-coral-200/70 flex items-center justify-center shrink-0" onclick="clearKeyword()" type="button">
+<iconify-icon class="text-coral-700" icon="solar:close-circle-linear" width="13"></iconify-icon>
+</button>
+</div>
+<button class="text-[13px] font-medium text-coral-600 shrink-0" onclick="runSearch()" type="button">搜索</button>
+</div>
+<!-- 类型筛选 -->
+<div class="mt-3 flex gap-2">
+<button class="type-btn rounded-full px-3.5 py-1.5 text-[12px] font-medium transition" data-type="all" onclick="setType('all')" type="button">全部</button>
+<button class="type-btn rounded-full px-3.5 py-1.5 text-[12px] font-medium transition" data-type="lost" onclick="setType('lost')" type="button">失物</button>
+<button class="type-btn rounded-full px-3.5 py-1.5 text-[12px] font-medium transition" data-type="found" onclick="setType('found')" type="button">招领</button>
+</div>
+</header>
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
+<!-- 结果统计 -->
+<section class="px-5 pt-3.5 flex items-center justify-between">
+<p class="text-[12px] text-ink-500" id="resultSummary">关键词“校园卡”：找到 2 条信息</p>
+<span class="text-[11px] text-ink-300">按时间倒序</span>
+</section>
+<!-- 搜索结果列表 -->
+<section class="mt-3 px-5 pb-6 space-y-3" id="resultList">
+<a class="result-card block rounded-card bg-white shadow-softer overflow-hidden" data-key="校园卡 林 图书馆 证件卡片 白色卡套 便利贴" data-type="lost" href="detail.html?id=1">
+<div class="flex gap-3 p-3">
+<div class="relative w-[84px] h-[84px] shrink-0 rounded-[10px] overflow-hidden bg-gradient-to-br from-coral-100 via-coral-200 to-coral-300 flex items-center justify-center">
+<iconify-icon class="text-coral-700/70" icon="solar:card-2-linear" width="32"></iconify-icon>
+<img alt="Student ID card found near the library entrance" class="absolute inset-0 w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-09-25/820eb329c822409da7dbf17d2fcefebf.jpg"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<span class="rounded-full bg-coral-100 text-coral-700 px-2 py-0.5 text-[10px] font-medium">失物</span>
+<span class="rounded-full bg-amber-50 text-amber-600 px-2 py-0.5 text-[10px] font-medium">寻找中</span>
+</div>
+<h3 class="mt-1.5 text-[13.5px] font-semibold truncate">校园卡（姓名首字为“林”）</h3>
+<p class="mt-1 text-[11px] text-ink-500 truncate">图书馆 · 二楼自习区 A-12 座位附近</p>
+<p class="mt-0.5 text-[11px] text-ink-300">09 月 25 日 10:20 · 发布者 林同学</p>
+</div>
+</div>
+</a>
+<a class="result-card block rounded-card bg-white shadow-softer overflow-hidden" data-key="校园卡 学生证 卡套 图书馆 服务台 招领" data-type="found" href="detail.html?id=7">
+<div class="flex gap-3 p-3">
+<div class="relative w-[84px] h-[84px] shrink-0 rounded-[10px] overflow-hidden bg-gradient-to-br from-coral-100 via-coral-200 to-coral-300 flex items-center justify-center">
+<iconify-icon class="text-coral-700/70" icon="solar:card-linear" width="32"></iconify-icon>
+<img alt="A campus card in a clear holder placed on a service desk" class="absolute inset-0 w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-09-25/621b36b2de744abf954d1dbc979766c1.jpg"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<span class="rounded-full bg-emerald-50 text-emerald-600 px-2 py-0.5 text-[10px] font-medium">招领</span>
+<span class="rounded-full bg-sky-50 text-sky-600 px-2 py-0.5 text-[10px] font-medium">待认领</span>
+</div>
+<h3 class="mt-1.5 text-[13.5px] font-semibold truncate">校园卡（卡套为透明款）</h3>
+<p class="mt-1 text-[11px] text-ink-500 truncate">图书馆 · 一楼自助借还机旁</p>
+<p class="mt-0.5 text-[11px] text-ink-300">09 月 24 日 17:45 · 发布者 周同学</p>
+</div>
+</div>
+</a>
+<a class="result-card block rounded-card bg-white shadow-softer overflow-hidden" data-key="钥匙 小熊挂件 第三教学楼 教室 招领" data-type="found" href="detail.html?id=2">
+<div class="flex gap-3 p-3">
+<div class="relative w-[84px] h-[84px] shrink-0 rounded-[10px] overflow-hidden bg-gradient-to-br from-coral-100 via-coral-200 to-coral-300 flex items-center justify-center">
+<iconify-icon class="text-coral-700/70" icon="solar:key-linear" width="32"></iconify-icon>
+<img alt="A bunch of keys with a small bear keychain" class="absolute inset-0 w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-09-25/b2bb6e0afe1248d1a39cb99160fb713e.jpg"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<span class="rounded-full bg-emerald-50 text-emerald-600 px-2 py-0.5 text-[10px] font-medium">招领</span>
+<span class="rounded-full bg-sky-50 text-sky-600 px-2 py-0.5 text-[10px] font-medium">待认领</span>
+</div>
+<h3 class="mt-1.5 text-[13.5px] font-semibold truncate">一串钥匙（带小熊挂件）</h3>
+<p class="mt-1 text-[11px] text-ink-500 truncate">第三教学楼 · 302 教室</p>
+<p class="mt-0.5 text-[11px] text-ink-300">09 月 25 日 08:05 · 发布者 陈同学</p>
+</div>
+</div>
+</a>
+<a class="result-card block rounded-card bg-white shadow-softer overflow-hidden" data-key="保温杯 蓝色 贴纸 第二食堂 水杯 失物" data-type="lost" href="detail.html?id=3">
+<div class="flex gap-3 p-3">
+<div class="relative w-[84px] h-[84px] shrink-0 rounded-[10px] overflow-hidden bg-gradient-to-br from-coral-100 via-coral-200 to-coral-300 flex items-center justify-center">
+<iconify-icon class="text-coral-700/70" icon="solar:cup-hot-linear" width="32"></iconify-icon>
+<img alt="A blue insulated water bottle with stickers on the cap" class="absolute inset-0 w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-09-25/92fe5a7258db4d488135d388b2770bd2.jpg"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<span class="rounded-full bg-coral-100 text-coral-700 px-2 py-0.5 text-[10px] font-medium">失物</span>
+<span class="rounded-full bg-amber-50 text-amber-600 px-2 py-0.5 text-[10px] font-medium">寻找中</span>
+</div>
+<h3 class="mt-1.5 text-[13.5px] font-semibold truncate">蓝色保温杯（贴纸款）</h3>
+<p class="mt-1 text-[11px] text-ink-500 truncate">第二食堂 · 一楼靠窗座位</p>
+<p class="mt-0.5 text-[11px] text-ink-300">09 月 24 日 12:40 · 发布者 王同学</p>
+</div>
+</div>
+</a>
+<a class="result-card block rounded-card bg-white shadow-softer overflow-hidden" data-key="笔记本 棕色皮面 第一教学楼 阶梯教室 失物" data-type="lost" href="detail.html?id=5">
+<div class="flex gap-3 p-3">
+<div class="relative w-[84px] h-[84px] shrink-0 rounded-[10px] overflow-hidden bg-gradient-to-br from-coral-100 via-coral-200 to-coral-300 flex items-center justify-center">
+<iconify-icon class="text-coral-700/70" icon="solar:notebook-linear" width="32"></iconify-icon>
+<img alt="A brown leather notebook with a pen attached" class="absolute inset-0 w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-09-25/11dae9c1c3204a228c96c81d78410a10.jpg"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<span class="rounded-full bg-coral-100 text-coral-700 px-2 py-0.5 text-[10px] font-medium">失物</span>
+<span class="rounded-full bg-emerald-50 text-emerald-600 px-2 py-0.5 text-[10px] font-medium">已找回</span>
+</div>
+<h3 class="mt-1.5 text-[13.5px] font-semibold truncate">棕色皮面笔记本</h3>
+<p class="mt-1 text-[11px] text-ink-500 truncate">第一教学楼 · 阶梯教室 101</p>
+<p class="mt-0.5 text-[11px] text-ink-300">09 月 23 日 15:10 · 发布者 李同学</p>
+</div>
+</div>
+</a>
+</section>
+<!-- 无结果状态 -->
+<section class="hidden px-5 pb-8 pt-2" id="noResult">
+<div class="rounded-card bg-white shadow-softer px-6 py-10 text-center">
+<span class="w-16 h-16 mx-auto rounded-full bg-coral-50 flex items-center justify-center">
+<iconify-icon class="text-coral-400" icon="solar:magnifer-zoom-out-linear" width="30"></iconify-icon>
+</span>
+<h3 class="mt-3.5 text-[15px] font-semibold" id="noResultTitle">没有找到“<span id="noResultWord">校园卡</span>”相关信息</h3>
+<p class="mt-2 text-[12px] leading-relaxed text-ink-500">
+          可以尝试更换关键词，例如只输入“校园卡”“钥匙”等物品名称，或减少筛选条件。
+        </p>
+<div class="mt-4 rounded-card bg-coral-50 px-4 py-3 text-left">
+<p class="text-[11px] font-medium text-ink-700">推荐搜索</p>
+<div class="mt-2 flex flex-wrap gap-2">
+<button class="rounded-full bg-white px-3 py-1.5 text-[11px] text-coral-600 border border-coral-100" onclick="quickSearch('校园卡')" type="button">校园卡</button>
+<button class="rounded-full bg-white px-3 py-1.5 text-[11px] text-coral-600 border border-coral-100" onclick="quickSearch('钥匙')" type="button">钥匙</button>
+<button class="rounded-full bg-white px-3 py-1.5 text-[11px] text-coral-600 border border-coral-100" onclick="quickSearch('水杯')" type="button">水杯</button>
+<button class="rounded-full bg-white px-3 py-1.5 text-[11px] text-coral-600 border border-coral-100" onclick="quickSearch('图书馆')" type="button">图书馆</button>
+</div>
+</div>
+<div class="mt-4 flex gap-3">
+<a class="flex-1 rounded-card border border-coral-200 py-2.5 text-[13px] font-medium text-coral-600 text-center" href="home.html">返回首页</a>
+<a class="flex-1 rounded-card bg-coral-500 py-2.5 text-[13px] font-semibold text-white text-center" href="publish.html">发布信息</a>
+</div>
+</div>
+</section>
+<!-- 热门关键词 -->
+<section class="px-5 pb-5" id="hotSection">
+<p class="text-[12px] font-medium text-ink-700">大家都在搜</p>
+<div class="mt-2.5 flex flex-wrap gap-2">
+<button class="rounded-full bg-white px-3.5 py-1.5 text-[12px] text-ink-700 shadow-softer" onclick="quickSearch('校园卡')" type="button">校园卡</button>
+<button class="rounded-full bg-white px-3.5 py-1.5 text-[12px] text-ink-700 shadow-softer" onclick="quickSearch('钥匙')" type="button">钥匙</button>
+<button class="rounded-full bg-white px-3.5 py-1.5 text-[12px] text-ink-700 shadow-softer" onclick="quickSearch('耳机')" type="button">耳机</button>
+<button class="rounded-full bg-white px-3.5 py-1.5 text-[12px] text-ink-700 shadow-softer" onclick="quickSearch('水杯')" type="button">水杯</button>
+<button class="rounded-full bg-white px-3.5 py-1.5 text-[12px] text-ink-700 shadow-softer" onclick="quickSearch('图书馆')" type="button">图书馆</button>
+<button class="rounded-full bg-white px-3.5 py-1.5 text-[12px] text-ink-700 shadow-softer" onclick="quickSearch('食堂')" type="button">食堂</button>
+</div>
+</section>
+</main>
+<!-- 底部导航 -->
+<nav class="shrink-0 bg-white border-t border-coral-100 px-2 pt-2 pb-3">
+<div class="grid grid-cols-4">
+<a class="flex flex-col items-center gap-1 py-1" href="home.html">
+<iconify-icon class="text-ink-300" icon="solar:home-smile-linear" width="21"></iconify-icon>
+<span class="text-[10px] text-ink-500">首页</span>
+</a>
+<a class="flex flex-col items-center gap-1 py-1" href="search.html">
+<iconify-icon class="text-coral-500" icon="solar:magnifer-bold" width="21"></iconify-icon>
+<span class="text-[10px] font-medium text-coral-500">搜索</span>
+</a>
+<a class="flex flex-col items-center gap-1 py-1" href="publish.html">
+<iconify-icon class="text-ink-300" icon="solar:add-circle-linear" width="21"></iconify-icon>
+<span class="text-[10px] text-ink-500">发布</span>
+</a>
+<a class="flex flex-col items-center gap-1 py-1" href="my-posts.html">
+<iconify-icon class="text-ink-300" icon="solar:user-circle-linear" width="21"></iconify-icon>
+<span class="text-[10px] text-ink-500">我的</span>
+</a>
+</div>
+</nav>
+</div>
+<script>
+  var currentType = 'all';
+
+  function setType(type) {
+    currentType = type;
+    applySearch();
+  }
+
+  function applySearch() {
+    var keyword = document.getElementById('keyword').value.trim();
+    var cards = document.querySelectorAll('.result-card');
+    var visible = 0;
+
+    cards.forEach(function (card) {
+      var key = card.getAttribute('data-key') || '';
+      var typeOk = currentType === 'all' || card.getAttribute('data-type') === currentType;
+      var keywordOk = keyword === '' || key.indexOf(keyword) !== -1;
+      if (typeOk && keywordOk) {
+        card.classList.remove('hidden');
+        visible++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    var noResult = document.getElementById('noResult');
+    var hotSection = document.getElementById('hotSection');
+    var summary = document.getElementById('resultSummary');
+
+    if (visible === 0) {
+      noResult.classList.remove('hidden');
+      document.getElementById('noResultWord').textContent = keyword === '' ? '当前筛选条件' : keyword;
+      summary.textContent = '没有找到匹配的信息';
+    } else {
+      noResult.classList.add('hidden');
+      if (keyword === '') {
+        summary.textContent = '共 ' + visible + ' 条校园信息正在流转';
+      } else {
+        summary.textContent = '关键词“' + keyword + '”：找到 ' + visible + ' 条信息';
+      }
+    }
+
+    hotSection.classList.toggle('hidden', visible !== 0);
+
+    document.querySelectorAll('.type-btn').forEach(function (btn) {
+      var active = btn.getAttribute('data-type') === currentType;
+      if (active) {
+        btn.classList.add('bg-coral-500', 'text-white');
+        btn.classList.remove('bg-white', 'text-ink-500');
+      } else {
+        btn.classList.remove('bg-coral-500', 'text-white');
+        btn.classList.add('bg-white', 'text-ink-500');
+      }
+    });
+  }
+
+  function runSearch() {
+    applySearch();
+    var list = document.getElementById('resultList');
+    if (list) {
+      list.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function quickSearch(word) {
+    document.getElementById('keyword').value = word;
+    applySearch();
+  }
+
+  function clearKeyword() {
+    document.getElementById('keyword').value = '';
+    applySearch();
+  }
+
+  document.getElementById('keyword').addEventListener('input', applySearch);
+  document.getElementById('keyword').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      runSearch();
+    }
+  });
+
+  applySearch();
+</script>
+</body>
+</html>

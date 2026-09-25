@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>校园失物招领 · 发布信息</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          coral: {
+            50: '#FFF7F5',
+            100: '#FDECE8',
+            200: '#F9D4CC',
+            300: '#F2B3A7',
+            400: '#EC9686',
+            500: '#E37D6C',
+            600: '#C96351',
+            700: '#A24B3C',
+            800: '#7A382D',
+            900: '#54261E'
+          },
+          ink: {
+            900: '#332C2A',
+            700: '#5C514D',
+            500: '#8A7C77',
+            300: '#BEB2AD'
+          }
+        },
+        borderRadius: {
+          card: '12px'
+        },
+        boxShadow: {
+          soft: '0 4px 16px rgba(214, 160, 148, 0.14)',
+          softer: '0 2px 8px rgba(214, 160, 148, 0.10)'
+        }
+      }
+    }
+  };
+</script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; }
+</style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-neutral-100 text-ink-900">
+<div class="w-full h-full max-w-[393px] max-h-[852px] bg-coral-50 flex flex-col overflow-hidden relative shadow-xl">
+<!-- 顶部导航 -->
+<header class="shrink-0 bg-white px-4 py-3 border-b border-coral-100 flex items-center gap-3">
+<a class="w-8 h-8 rounded-full bg-coral-50 flex items-center justify-center" href="home.html">
+<iconify-icon class="text-ink-700" icon="solar:alt-arrow-left-linear" width="18"></iconify-icon>
+</a>
+<h1 class="text-[16px] font-semibold">发布信息</h1>
+<span class="ml-auto text-[11px] text-ink-500">带 <span class="text-coral-500">*</span> 为必填</span>
+</header>
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
+<!-- 提示条 -->
+<section class="px-5 pt-4">
+<div class="rounded-card bg-coral-100/60 border border-coral-200 px-4 py-3 flex gap-2.5">
+<iconify-icon class="text-coral-600 mt-0.5 shrink-0" icon="solar:lightbulb-linear" width="16"></iconify-icon>
+<p class="text-[11px] leading-relaxed text-ink-700">
+          信息越具体，越容易被同学找到。建议写清颜色、特征、挂件等细节，方便对方快速辨认。
+        </p>
+</div>
+</section>
+<!-- 发布类型 -->
+<section class="px-5 mt-4">
+<h2 class="text-[13px] font-semibold">选择发布类型 <span class="text-coral-500">*</span></h2>
+<div class="mt-2.5 grid grid-cols-2 gap-3">
+<button class="type-card rounded-card border px-4 py-3.5 text-left transition" id="typeLostBtn" onclick="chooseType('lost')" type="button">
+<span class="flex items-center gap-2">
+<iconify-icon class="icon" icon="solar:document-add-linear" width="18"></iconify-icon>
+<span class="text-[13.5px] font-semibold label">发布寻物</span>
+</span>
+<span class="mt-1 block text-[11px] sub">我丢了东西，希望大家帮忙留意</span>
+</button>
+<button class="type-card rounded-card border px-4 py-3.5 text-left transition" id="typeFoundBtn" onclick="chooseType('found')" type="button">
+<span class="flex items-center gap-2">
+<iconify-icon class="icon" icon="solar:hand-heart-linear" width="18"></iconify-icon>
+<span class="text-[13.5px] font-semibold label">发布招领</span>
+</span>
+<span class="mt-1 block text-[11px] sub">我捡到了东西，等待失主认领</span>
+</button>
+</div>
+<p class="mt-2 text-[11px] text-coral-600 hidden" id="typeError">请先选择发布类型</p>
+</section>
+<!-- 物品名称 -->
+<section class="px-5 mt-4">
+<div class="rounded-card bg-white shadow-softer p-4">
+<h2 class="text-[13px] font-semibold">物品名称 <span class="text-coral-500">*</span></h2>
+<input class="mt-2.5 w-full rounded-[10px] bg-coral-50 border border-coral-100 px-3.5 py-3 text-[13px] outline-none focus:border-coral-300 placeholder:text-ink-300" id="itemName" placeholder="例如：校园卡 / 一串钥匙 / 蓝色保温杯" type="text"/>
+<p class="mt-1.5 text-[11px] text-coral-600 hidden" id="itemNameError">请填写物品名称</p>
+<h2 class="mt-4 text-[13px] font-semibold">物品类别 <span class="text-coral-500">*</span></h2>
+<div class="mt-2.5 flex flex-wrap gap-2">
+<button class="cat-btn rounded-full border border-coral-100 bg-coral-50 px-3.5 py-2 text-[12px] text-ink-700" data-cat="证件卡片" onclick="chooseCategory(this)" type="button">证件卡片</button>
+<button class="cat-btn rounded-full border border-coral-100 bg-coral-50 px-3.5 py-2 text-[12px] text-ink-700" data-cat="钥匙门禁" onclick="chooseCategory(this)" type="button">钥匙门禁</button>
+<button class="cat-btn rounded-full border border-coral-100 bg-coral-50 px-3.5 py-2 text-[12px] text-ink-700" data-cat="数码电子" onclick="chooseCategory(this)" type="button">数码电子</button>
+<button class="cat-btn rounded-full border border-coral-100 bg-coral-50 px-3.5 py-2 text-[12px] text-ink-700" data-cat="杯具水壶" onclick="chooseCategory(this)" type="button">杯具水壶</button>
+<button class="cat-btn rounded-full border border-coral-100 bg-coral-50 px-3.5 py-2 text-[12px] text-ink-700" data-cat="书籍文具" onclick="chooseCategory(this)" type="button">书籍文具</button>
+<button class="cat-btn rounded-full border border-coral-100 bg-coral-50 px-3.5 py-2 text-[12px] text-ink-700" data-cat="服饰箱包" onclick="chooseCategory(this)" type="button">服饰箱包</button>
+</div>
+<p class="mt-1.5 text-[11px] text-coral-600 hidden" id="categoryError">请选择物品类别</p>
+</div>
+</section>
+<!-- 地点与时间 -->
+<section class="px-5 mt-3">
+<div class="rounded-card bg-white shadow-softer p-4">
+<h2 class="text-[13px] font-semibold" id="placeLabel">丢失地点 <span class="text-coral-500">*</span></h2>
+<div class="mt-2.5 flex items-center gap-2">
+<iconify-icon class="text-coral-500 shrink-0" icon="solar:map-point-linear" width="17"></iconify-icon>
+<input class="flex-1 rounded-[10px] bg-coral-50 border border-coral-100 px-3.5 py-3 text-[13px] outline-none focus:border-coral-300 placeholder:text-ink-300" id="place" placeholder="例如：图书馆二楼自习区 / 第三教学楼 302" type="text"/>
+</div>
+<div class="mt-2 flex flex-wrap gap-2">
+<button class="rounded-full bg-coral-50 border border-coral-100 px-3 py-1.5 text-[11px] text-ink-700" onclick="fillPlace('图书馆')" type="button">图书馆</button>
+<button class="rounded-full bg-coral-50 border border-coral-100 px-3 py-1.5 text-[11px] text-ink-700" onclick="fillPlace('第二食堂')" type="button">第二食堂</button>
+<button class="rounded-full bg-coral-50 border border-coral-100 px-3 py-1.5 text-[11px] text-ink-700" onclick="fillPlace('第一教学楼')" type="button">第一教学楼</button>
+<button class="rounded-full bg-coral-50 border border-coral-100 px-3 py-1.5 text-[11px] text-ink-700" onclick="fillPlace('体育馆')" type="button">体育馆</button>
+</div>
+<p class="mt-1.5 text-[11px] text-coral-600 hidden" id="placeError">请填写地点</p>
+<h2 class="mt-4 text-[13px] font-semibold" id="timeLabel">丢失时间 <span class="text-coral-500">*</span></h2>
+<div class="mt-2.5 flex items-center gap-2">
+<iconify-icon class="text-coral-500 shrink-0" icon="solar:calendar-linear" width="17"></iconify-icon>
+<input class="flex-1 rounded-[10px] bg-coral-50 border border-coral-100 px-3.5 py-3 text-[13px] outline-none focus:border-coral-300 text-ink-700" id="time" type="datetime-local"/>
+</div>
+<p class="mt-1.5 text-[11px] text-ink-500">不确定具体时间时，可以填写大致时段（如“中午 12 点左右”）</p>
+<p class="mt-1.5 text-[11px] text-coral-600 hidden" id="timeError">请选择时间</p>
+</div>
+</section>
+<!-- 描述 -->
+<section class="px-5 mt-3">
+<div class="rounded-card bg-white shadow-softer p-4">
+<h2 class="text-[13px] font-semibold">物品描述</h2>
+<textarea class="mt-2.5 w-full rounded-[10px] bg-coral-50 border border-coral-100 px-3.5 py-3 text-[13px] outline-none focus:border-coral-300 placeholder:text-ink-300 resize-none" id="description" placeholder="补充颜色、品牌、贴纸、挂件等细节，或写下想对拾到者/失主说的话" rows="4"></textarea>
+<p class="mt-1.5 text-[11px] text-ink-500">建议 20–100 字，描述越细越容易被认出</p>
+</div>
+</section>
+<!-- 图片 -->
+<section class="px-5 mt-3">
+<div class="rounded-card bg-white shadow-softer p-4">
+<div class="flex items-center justify-between">
+<h2 class="text-[13px] font-semibold">物品图片</h2>
+<span class="text-[11px] text-ink-500">选填 · 最多 3 张</span>
+</div>
+<div class="mt-2.5 flex gap-3">
+<div class="relative w-[84px] h-[84px] rounded-[10px] overflow-hidden bg-gradient-to-br from-coral-100 via-coral-200 to-coral-300 flex items-center justify-center">
+<iconify-icon class="text-coral-700/70" icon="solar:card-2-linear" width="30"></iconify-icon>
+<img alt="Uploaded photo preview of the found item" class="absolute inset-0 w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-09-25/6ec9bf5c4e3e4979b0ad77f510acf363.jpg"/>
+<span class="absolute bottom-1 left-1 rounded bg-white/90 px-1.5 py-0.5 text-[9px] text-coral-700">已选 1 张</span>
+</div>
+<button class="w-[84px] h-[84px] rounded-[10px] border border-dashed border-coral-300 bg-coral-50 flex flex-col items-center justify-center gap-1" onclick="addPhotoHint()" type="button">
+<iconify-icon class="text-coral-400" icon="solar:camera-add-linear" width="22"></iconify-icon>
+<span class="text-[10px] text-coral-600">添加图片</span>
+</button>
+</div>
+<p class="mt-2 text-[11px] text-ink-500" id="photoHint">原型演示：已默认附带一张示例图片，点击“添加图片”可查看提示。</p>
+</div>
+</section>
+<!-- 联系方式 -->
+<section class="px-5 mt-3 pb-4">
+<div class="rounded-card bg-white shadow-softer p-4">
+<div class="flex items-center gap-2">
+<h2 class="text-[13px] font-semibold">联系方式 <span class="text-coral-500">*</span></h2>
+<span class="rounded-full bg-coral-50 px-2 py-0.5 text-[10px] text-coral-600">仅点击后可见</span>
+</div>
+<div class="mt-2.5 flex items-center gap-2">
+<iconify-icon class="text-coral-500 shrink-0" icon="solar:chat-round-line-linear" width="17"></iconify-icon>
+<input class="flex-1 rounded-[10px] bg-coral-50 border border-coral-100 px-3.5 py-3 text-[13px] outline-none focus:border-coral-300 placeholder:text-ink-300" id="contact" placeholder="微信号或手机号，例如：lin_2024_card" type="text"/>
+</div>
+<p class="mt-1.5 text-[11px] text-coral-600 hidden" id="contactError">请填写联系方式</p>
+<h2 class="mt-4 text-[13px] font-semibold">方便交接的位置</h2>
+<input class="mt-2.5 w-full rounded-[10px] bg-coral-50 border border-coral-100 px-3.5 py-3 text-[13px] outline-none focus:border-coral-300 placeholder:text-ink-300" id="meetPlace" placeholder="例如：图书馆一楼服务台 / 宿舍 6 号楼门口" type="text"/>
+<label class="mt-3.5 flex items-start gap-2.5">
+<input class="mt-0.5 w-4 h-4 accent-[#E37D6C]" id="agree" type="checkbox"/>
+<span class="text-[11.5px] leading-relaxed text-ink-700">
+            我确认信息真实，并同意在平台展示该内容；如物品已找回或已归还，我会及时更新状态。
+          </span>
+</label>
+<p class="mt-1.5 text-[11px] text-coral-600 hidden" id="agreeError">请先勾选确认后再发布</p>
+</div>
+</section>
+</main>
+<!-- 底部操作 -->
+<div class="shrink-0 bg-white border-t border-coral-100 px-5 pt-3 pb-4 flex gap-3">
+<button class="w-[96px] shrink-0 rounded-card border border-coral-200 text-coral-600 text-[13px] font-medium py-3" onclick="resetForm()" type="button">
+      清空重填
+    </button>
+<button class="flex-1 rounded-card bg-coral-500 text-white text-[14px] font-semibold py-3 shadow-soft" onclick="submitForm()" type="button">
+      发布
+    </button>
+</div>
+<!-- 校验提示弹窗 -->
+<div class="hidden absolute inset-0 z-30 items-center justify-center bg-black/40 px-8" id="tipModal">
+<div class="w-full rounded-card bg-white px-5 py-5">
+<div class="flex items-start gap-3">
+<span class="w-9 h-9 shrink-0 rounded-full bg-coral-50 flex items-center justify-center">
+<iconify-icon class="text-coral-600" icon="solar:danger-triangle-linear" width="18"></iconify-icon>
+</span>
+<div>
+<h3 class="text-[14px] font-semibold">还需要补充信息</h3>
+<p class="mt-1 text-[12px] leading-relaxed text-ink-700" id="tipText">请填写必填项后再发布。</p>
+</div>
+</div>
+<button class="mt-4 w-full rounded-card bg-coral-500 py-2.5 text-[13px] font-semibold text-white" onclick="closeTip()" type="button">
+        返回填写
+      </button>
+</div>
+</div>
+</div>
+<script>
+  var selectedType = '';
+  var selectedCategory = '';
+
+  function chooseType(type) {
+    selectedType = type;
+    var lostBtn = document.getElementById('typeLostBtn');
+    var foundBtn = document.getElementById('typeFoundBtn');
+
+    [[lostBtn, 'lost'], [foundBtn, 'found']].forEach(function (pair) {
+      var btn = pair[0];
+      var isActive = pair[1] === type;
+      if (isActive) {
+        btn.classList.add('border-coral-400', 'bg-coral-50');
+        btn.classList.remove('border-coral-100', 'bg-white');
+        btn.querySelector('.label').classList.add('text-coral-700');
+        btn.querySelector('.sub').classList.add('text-coral-600');
+        btn.querySelector('.icon').classList.add('text-coral-600');
+      } else {
+        btn.classList.remove('border-coral-400', 'bg-coral-50');
+        btn.classList.add('border-coral-100', 'bg-white');
+        btn.querySelector('.label').classList.remove('text-coral-700');
+        btn.querySelector('.sub').classList.remove('text-coral-600');
+        btn.querySelector('.icon').classList.remove('text-coral-600');
+      }
+    });
+
+    document.getElementById('placeLabel').innerHTML = (type === 'found' ? '拾取地点' : '丢失地点') + ' <span class="text-coral-500">*</span>';
+    document.getElementById('timeLabel').innerHTML = (type === 'found' ? '拾取时间' : '丢失时间') + ' <span class="text-coral-500">*</span>';
+    document.getElementById('place').placeholder = type === 'found'
+      ? '例如：第三教学楼 302 教室 / 食堂二楼靠窗'
+      : '例如：图书馆二楼自习区 / 宿舍楼下';
+    document.getElementById('typeError').classList.add('hidden');
+  }
+
+  function chooseCategory(btn) {
+    selectedCategory = btn.getAttribute('data-cat');
+    document.querySelectorAll('.cat-btn').forEach(function (item) {
+      if (item === btn) {
+        item.classList.add('bg-coral-500', 'text-white', 'border-coral-500');
+        item.classList.remove('bg-coral-50', 'text-ink-700');
+      } else {
+        item.classList.remove('bg-coral-500', 'text-white', 'border-coral-500');
+        item.classList.add('bg-coral-50', 'text-ink-700');
+      }
+    });
+    document.getElementById('categoryError').classList.add('hidden');
+  }
+
+  function fillPlace(text) {
+    document.getElementById('place').value = text;
+    document.getElementById('placeError').classList.add('hidden');
+  }
+
+  function addPhotoHint() {
+    document.getElementById('photoHint').textContent = '原型演示：图片上传仅为示意，正式版本将支持相机与相册选择。';
+  }
+
+  function showTip(message) {
+    document.getElementById('tipText').textContent = message;
+    var modal = document.getElementById('tipModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function closeTip() {
+    var modal = document.getElementById('tipModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+
+  function setError(id, show) {
+    document.getElementById(id).classList.toggle('hidden', !show);
+  }
+
+  function submitForm() {
+    var name = document.getElementById('itemName').value.trim();
+    var place = document.getElementById('place').value.trim();
+    var time = document.getElementById('time').value;
+    var contact = document.getElementById('contact').value.trim();
+    var agree = document.getElementById('agree').checked;
+
+    var missing = [];
+
+    if (selectedType === '') { missing.push('发布类型'); }
+    if (name === '') { missing.push('物品名称'); }
+    if (selectedCategory === '') { missing.push('物品类别'); }
+    if (place === '') { missing.push(selectedType === 'found' ? '拾取地点' : '丢失地点'); }
+    if (time === '') { missing.push(selectedType === 'found' ? '拾取时间' : '丢失时间'); }
+    if (contact === '') { missing.push('联系方式'); }
+
+    setError('itemNameError', name === '');
+    setError('categoryError', selectedCategory === '');
+    setError('placeError', place === '');
+    setError('timeError', time === '');
+    setError('contactError', contact === '');
+    setError('typeError', selectedType === '');
+    setError('agreeError', !agree);
+
+    if (missing.length > 0) {
+      showTip('请先补充：' + missing.join('、') + '。');
+      return;
+    }
+
+    if (!agree) {
+      showTip('请勾选“确认信息真实”后再发布。');
+      return;
+    }
+
+    var typeCode = selectedType === 'found' ? 'found' : 'lost';
+    window.location.href = 'publish-success.html?type=' + typeCode + '&name=' + encodeURIComponent(name);
+  }
+
+  function resetForm() {
+    selectedType = '';
+    selectedCategory = '';
+    document.getElementById('itemName').value = '';
+    document.getElementById('place').value = '';
+    document.getElementById('time').value = '';
+    document.getElementById('description').value = '';
+    document.getElementById('contact').value = '';
+    document.getElementById('meetPlace').value = '';
+    document.getElementById('agree').checked = false;
+    document.getElementById('photoHint').textContent = '原型演示：已默认附带一张示例图片，点击“添加图片”可查看提示。';
+
+    document.querySelectorAll('.cat-btn').forEach(function (item) {
+      item.classList.remove('bg-coral-500', 'text-white', 'border-coral-500');
+      item.classList.add('bg-coral-50', 'text-ink-700');
+    });
+
+    document.querySelectorAll('.type-card').forEach(function (btn) {
+      btn.classList.remove('border-coral-400', 'bg-coral-50');
+      btn.classList.add('border-coral-100', 'bg-white');
+      btn.querySelector('.label').classList.remove('text-coral-700');
+      btn.querySelector('.sub').classList.remove('text-coral-600');
+      btn.querySelector('.icon').classList.remove('text-coral-600');
+    });
+
+    ['itemNameError', 'categoryError', 'placeError', 'timeError', 'contactError', 'typeError', 'agreeError'].forEach(function (id) {
+      setError(id, false);
+    });
+
+    document.getElementById('placeLabel').innerHTML = '丢失地点 <span class="text-coral-500">*</span>';
+    document.getElementById('timeLabel').innerHTML = '丢失时间 <span class="text-coral-500">*</span>';
+    document.getElementById('place').placeholder = '例如：图书馆二楼自习区 / 第三教学楼 302';
+
+    var list = document.querySelector('main');
+    if (list) { list.scrollTo({ top: 0, behavior: 'smooth' }); }
+  }
+
+  (function initFromQuery() {
+    var params = new URLSearchParams(window.location.search);
+    var type = params.get('type');
+    if (type === 'lost' || type === 'found') {
+      chooseType(type);
+    }
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>校园失物招领 · 首页</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          coral: {
+            50: '#FFF7F5',
+            100: '#FDECE8',
+            200: '#F9D4CC',
+            300: '#F2B3A7',
+            400: '#EC9686',
+            500: '#E37D6C',
+            600: '#C96351',
+            700: '#A24B3C',
+            800: '#7A382D',
+            900: '#54261E'
+          },
+          ink: {
+            900: '#332C2A',
+            700: '#5C514D',
+            500: '#8A7C77',
+            300: '#BEB2AD'
+          }
+        },
+        borderRadius: {
+          card: '12px'
+        },
+        boxShadow: {
+          soft: '0 4px 16px rgba(214, 160, 148, 0.14)',
+          softer: '0 2px 8px rgba(214, 160, 148, 0.10)'
+        }
+      }
+    }
+  };
+</script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; }
+</style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-neutral-100 text-ink-900">
+<div class="w-full h-full max-w-[393px] max-h-[852px] bg-coral-50 flex flex-col overflow-hidden relative shadow-xl">
+<!-- 顶部栏 -->
+<header class="shrink-0 bg-white px-5 pt-5 pb-3 border-b border-coral-100">
+<div class="flex items-start justify-between">
+<div>
+<h1 class="text-[19px] font-bold tracking-tight text-ink-900">校园失物招领</h1>
+<p class="mt-1 text-[12px] text-ink-500">让丢的东西，都能回到主人手里</p>
+</div>
+<a class="flex items-center gap-1 rounded-full bg-coral-50 px-3 py-1.5 text-[12px] text-coral-600 border border-coral-100" href="about.html">
+<iconify-icon icon="solar:document-text-linear" width="14"></iconify-icon>
+        设计说明
+      </a>
+</div>
+<!-- 搜索入口 -->
+<a class="mt-3.5 flex items-center gap-2 rounded-card bg-coral-50 border border-coral-100 px-3.5 py-2.5" href="search.html">
+<iconify-icon class="text-coral-500" icon="solar:magnifer-linear" width="17"></iconify-icon>
+<span class="text-[13px] text-ink-300">搜索校园卡 / 钥匙 / 水杯…</span>
+<span class="ml-auto text-[11px] text-coral-500 font-medium">搜索</span>
+</a>
+</header>
+<!-- 主内容滚动区 -->
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
+<!-- 快捷入口 -->
+<section class="px-5 pt-4 grid grid-cols-3 gap-3">
+<a class="rounded-card bg-white shadow-softer p-3 flex flex-col items-center gap-1.5" href="publish.html?type=lost">
+<span class="w-9 h-9 rounded-full bg-coral-100 flex items-center justify-center">
+<iconify-icon class="text-coral-600" icon="solar:document-add-linear" width="19"></iconify-icon>
+</span>
+<span class="text-[12px] font-medium">发布寻物</span>
+</a>
+<a class="rounded-card bg-white shadow-softer p-3 flex flex-col items-center gap-1.5" href="publish.html?type=found">
+<span class="w-9 h-9 rounded-full bg-coral-100 flex items-center justify-center">
+<iconify-icon class="text-coral-600" icon="solar:hand-heart-linear" width="19"></iconify-icon>
+</span>
+<span class="text-[12px] font-medium">发布招领</span>
+</a>
+<a class="rounded-card bg-white shadow-softer p-3 flex flex-col items-center gap-1.5" href="my-posts.html">
+<span class="w-9 h-9 rounded-full bg-coral-100 flex items-center justify-center">
+<iconify-icon class="text-coral-600" icon="solar:clipboard-list-linear" width="19"></iconify-icon>
+</span>
+<span class="text-[12px] font-medium">我的发布</span>
+</a>
+</section>
+<!-- 类型切换 -->
+<section class="mt-5 px-5">
+<div class="flex items-end justify-between">
+<h2 class="text-[15px] font-semibold">近期信息</h2>
+<span class="text-[11px] text-ink-500" id="listCount">共 6 条</span>
+</div>
+<div class="mt-3 flex gap-2 rounded-card bg-coral-100/70 p-1">
+<button class="tab-btn flex-1 rounded-[9px] py-2 text-[13px] font-medium transition" data-filter="all" onclick="switchFilter('all')" type="button">全部</button>
+<button class="tab-btn flex-1 rounded-[9px] py-2 text-[13px] font-medium transition" data-filter="lost" onclick="switchFilter('lost')" type="button">失物信息</button>
+<button class="tab-btn flex-1 rounded-[9px] py-2 text-[13px] font-medium transition" data-filter="found" onclick="switchFilter('found')" type="button">招领信息</button>
+</div>
+<p class="mt-2.5 text-[11px] text-ink-500" id="filterHint">正在展示全部失物与招领信息</p>
+</section>
+<!-- 信息列表 -->
+<section class="mt-3 px-5 pb-5 space-y-3" id="cardList">
+<!-- 卡片 1 -->
+<a class="item-card block rounded-card bg-white shadow-softer overflow-hidden" data-type="lost" href="detail.html?id=1">
+<div class="flex gap-3 p-3">
+<div class="relative w-[86px] h-[86px] shrink-0 rounded-[10px] overflow-hidden bg-gradient-to-br from-coral-100 via-coral-200 to-coral-300 flex items-center justify-center">
+<iconify-icon class="text-coral-700/70" icon="solar:card-2-linear" width="34"></iconify-icon>
+<img alt="Student ID card found near the library entrance" class="absolute inset-0 w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-09-25/161f178b55e34869ae8696503a871106.jpg"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<span class="rounded-full bg-coral-100 text-coral-700 px-2 py-0.5 text-[10px] font-medium">失物</span>
+<span class="rounded-full bg-amber-50 text-amber-600 px-2 py-0.5 text-[10px] font-medium">寻找中</span>
+<span class="ml-auto text-[10px] text-ink-300">2 小时前</span>
+</div>
+<h3 class="mt-1.5 text-[14px] font-semibold truncate">校园卡（姓名首字为“林”）</h3>
+<p class="mt-1 flex items-center gap-1 text-[11px] text-ink-500">
+<iconify-icon class="text-coral-400" icon="solar:map-point-linear" width="13"></iconify-icon>
+              图书馆 · 二楼自习区
+            </p>
+<p class="mt-0.5 flex items-center gap-1 text-[11px] text-ink-500">
+<iconify-icon class="text-coral-400" icon="solar:clock-circle-linear" width="13"></iconify-icon>
+              09 月 25 日 10:20 前后
+            </p>
+</div>
+</div>
+</a>
+<!-- 卡片 2 -->
+<a class="item-card block rounded-card bg-white shadow-softer overflow-hidden" data-type="found" href="detail.html?id=2">
+<div class="flex gap-3 p-3">
+<div class="relative w-[86px] h-[86px] shrink-0 rounded-[10px] overflow-hidden bg-gradient-to-br from-coral-100 via-coral-200 to-coral-300 flex items-center justify-center">
+<iconify-icon class="text-coral-700/70" icon="solar:key-linear" width="34"></iconify-icon>
+<img alt="A bunch of keys with a small bear keychain" class="absolute inset-0 w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-09-25/534d6a7bfadc45d5a59395d13d4c7d97.jpg"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<span class="rounded-full bg-emerald-50 text-emerald-600 px-2 py-0.5 text-[10px] font-medium">招领</span>
+<span class="rounded-full bg-sky-50 text-sky-600 px-2 py-0.5 text-[10px] font-medium">待认领</span>
+<span class="ml-auto text-[10px] text-ink-300">5 小时前</span>
+</div>
+<h3 class="mt-1.5 text-[14px] font-semibold truncate">一串钥匙（带小熊挂件）</h3>
+<p class="mt-1 flex items-center gap-1 text-[11px] text-ink-500">
+<iconify-icon class="text-coral-400" icon="solar:map-point-linear" width="13"></iconify-icon>
+              第三教学楼 · 302 教室
+            </p>
+<p class="mt-0.5 flex items-center gap-1 text-[11px] text-ink-500">
+<iconify-icon class="text-coral-400" icon="solar:clock-circle-linear" width="13"></iconify-icon>
+              09 月 25 日 08:05 前后
+            </p>
+</div>
+</div>
+</a>
+<!-- 卡片 3 -->
+<a class="item-card block rounded-card bg-white shadow-softer overflow-hidden" data-type="lost" href="detail.html?id=3">
+<div class="flex gap-3 p-3">
+<div class="relative w-[86px] h-[86px] shrink-0 rounded-[10px] overflow-hidden bg-gradient-to-br from-coral-100 via-coral-200 to-coral-300 flex items-center justify-center">
+<iconify-icon class="text-coral-700/70" icon="solar:cup-hot-linear" width="34"></iconify-icon>
+<img alt="A blue insulated water bottle with stickers on the cap" class="absolute inset-0 w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-09-25/2a0c13d43e454648893a34fcdffc314c.jpg"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<span class="rounded-full bg-coral-100 text-coral-700 px-2 py-0.5 text-[10px] font-medium">失物</span>
+<span class="rounded-full bg-amber-50 text-amber-600 px-2 py-0.5 text-[10px] font-medium">寻找中</span>
+<span class="ml-auto text-[10px] text-ink-300">昨天</span>
+</div>
+<h3 class="mt-1.5 text-[14px] font-semibold truncate">蓝色保温杯（贴纸款）</h3>
+<p class="mt-1 flex items-center gap-1 text-[11px] text-ink-500">
+<iconify-icon class="text-coral-400" icon="solar:map-point-linear" width="13"></iconify-icon>
+              第二食堂 · 一楼靠窗座位
+            </p>
+<p class="mt-0.5 flex items-center gap-1 text-[11px] text-ink-500">
+<iconify-icon class="text-coral-400" icon="solar:clock-circle-linear" width="13"></iconify-icon>
+              09 月 24 日 12:40 前后
+            </p>
+</div>
+</div>
+</a>
+<!-- 卡片 4 -->
+<a class="item-card block rounded-card bg-white shadow-softer overflow-hidden" data-type="found" href="detail.html?id=4">
+<div class="flex gap-3 p-3">
+<div class="relative w-[86px] h-[86px] shrink-0 rounded-[10px] overflow-hidden bg-gradient-to-br from-coral-100 via-coral-200 to-coral-300 flex items-center justify-center">
+<iconify-icon class="text-coral-700/70" icon="solar:headphones-round-linear" width="34"></iconify-icon>
+<img alt="White wireless earphone case on a desk" class="absolute inset-0 w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-09-25/b3ab09c3898a4c5485f328eeccda443c.jpg"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<span class="rounded-full bg-emerald-50 text-emerald-600 px-2 py-0.5 text-[10px] font-medium">招领</span>
+<span class="rounded-full bg-sky-50 text-sky-600 px-2 py-0.5 text-[10px] font-medium">待认领</span>
+<span class="ml-auto text-[10px] text-ink-300">昨天</span>
+</div>
+<h3 class="mt-1.5 text-[14px] font-semibold truncate">白色蓝牙耳机充电盒</h3>
+<p class="mt-1 flex items-center gap-1 text-[11px] text-ink-500">
+<iconify-icon class="text-coral-400" icon="solar:map-point-linear" width="13"></iconify-icon>
+              体育馆 · 羽毛球场 3 号场
+            </p>
+<p class="mt-0.5 flex items-center gap-1 text-[11px] text-ink-500">
+<iconify-icon class="text-coral-400" icon="solar:clock-circle-linear" width="13"></iconify-icon>
+              09 月 24 日 18:15 前后
+            </p>
+</div>
+</div>
+</a>
+<!-- 卡片 5 -->
+<a class="item-card block rounded-card bg-white shadow-softer overflow-hidden" data-type="lost" href="detail.html?id=5">
+<div class="flex gap-3 p-3">
+<div class="relative w-[86px] h-[86px] shrink-0 rounded-[10px] overflow-hidden bg-gradient-to-br from-coral-100 via-coral-200 to-coral-300 flex items-center justify-center">
+<iconify-icon class="text-coral-700/70" icon="solar:notebook-linear" width="34"></iconify-icon>
+<img alt="A brown leather notebook with a pen attached" class="absolute inset-0 w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-09-25/c37e472d69c845a89cf8b3debc34a232.jpg"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<span class="rounded-full bg-coral-100 text-coral-700 px-2 py-0.5 text-[10px] font-medium">失物</span>
+<span class="rounded-full bg-emerald-50 text-emerald-600 px-2 py-0.5 text-[10px] font-medium">已找回</span>
+<span class="ml-auto text-[10px] text-ink-300">2 天前</span>
+</div>
+<h3 class="mt-1.5 text-[14px] font-semibold truncate">棕色皮面笔记本</h3>
+<p class="mt-1 flex items-center gap-1 text-[11px] text-ink-500">
+<iconify-icon class="text-coral-400" icon="solar:map-point-linear" width="13"></iconify-icon>
+              第一教学楼 · 阶梯教室 101
+            </p>
+<p class="mt-0.5 flex items-center gap-1 text-[11px] text-ink-500">
+<iconify-icon class="text-coral-400" icon="solar:clock-circle-linear" width="13"></iconify-icon>
+              09 月 23 日 15:10 前后
+            </p>
+</div>
+</div>
+</a>
+<!-- 卡片 6 -->
+<a class="item-card block rounded-card bg-white shadow-softer overflow-hidden" data-type="found" href="detail.html?id=6">
+<div class="flex gap-3 p-3">
+<div class="relative w-[86px] h-[86px] shrink-0 rounded-[10px] overflow-hidden bg-gradient-to-br from-coral-100 via-coral-200 to-coral-300 flex items-center justify-center">
+<iconify-icon class="text-coral-700/70" icon="solar:bag-4-linear" width="34"></iconify-icon>
+<img alt="A beige canvas tote bag on a bench" class="absolute inset-0 w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-09-25/bdc263111f1f40e39740dfff2366e1b1.jpg"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center gap-1.5">
+<span class="rounded-full bg-emerald-50 text-emerald-600 px-2 py-0.5 text-[10px] font-medium">招领</span>
+<span class="rounded-full bg-neutral-100 text-ink-500 px-2 py-0.5 text-[10px] font-medium">已归还</span>
+<span class="ml-auto text-[10px] text-ink-300">3 天前</span>
+</div>
+<h3 class="mt-1.5 text-[14px] font-semibold truncate">米色帆布托特包</h3>
+<p class="mt-1 flex items-center gap-1 text-[11px] text-ink-500">
+<iconify-icon class="text-coral-400" icon="solar:map-point-linear" width="13"></iconify-icon>
+              宿舍 6 号楼 · 门口长椅
+            </p>
+<p class="mt-0.5 flex items-center gap-1 text-[11px] text-ink-500">
+<iconify-icon class="text-coral-400" icon="solar:clock-circle-linear" width="13"></iconify-icon>
+              09 月 22 日 19:30 前后
+            </p>
+</div>
+</div>
+</a>
+<p class="hidden rounded-card bg-white shadow-softer px-5 py-9 text-center" id="emptyState">
+<iconify-icon class="text-coral-300" icon="solar:box-minimalistic-linear" width="34"></iconify-icon>
+<span class="mt-2 block text-[13px] font-medium text-ink-700">该分类下暂无信息</span>
+<span class="mt-1 block text-[11px] text-ink-500">换个分类看看，或先发布一条信息</span>
+</p>
+</section>
+<!-- 底部提示 -->
+<section class="px-5 pb-6">
+<div class="rounded-card bg-coral-100/60 border border-coral-200 px-4 py-3 flex gap-2.5">
+<iconify-icon class="text-coral-600 mt-0.5 shrink-0" icon="solar:shield-check-linear" width="17"></iconify-icon>
+<p class="text-[11px] leading-relaxed text-ink-700">
+          证件类物品不展示敏感号码；联系方式需主动点击“联系发布者”后才可见，请注意保护双方隐私。
+        </p>
+</div>
+</section>
+</main>
+<!-- 悬浮发布按钮 -->
+<a class="absolute right-5 bottom-[86px] z-20 flex items-center gap-1.5 rounded-full bg-coral-500 px-4 py-3 text-[13px] font-semibold text-white shadow-soft" href="publish.html">
+<iconify-icon icon="solar:add-circle-linear" width="17"></iconify-icon>
+    发布信息
+  </a>
+<!-- 底部导航 -->
+<nav class="shrink-0 bg-white border-t border-coral-100 px-2 pt-2 pb-3">
+<div class="grid grid-cols-4">
+<a class="flex flex-col items-center gap-1 py-1" href="home.html">
+<iconify-icon class="text-coral-500" icon="solar:home-smile-bold" width="21"></iconify-icon>
+<span class="text-[10px] font-medium text-coral-500">首页</span>
+</a>
+<a class="flex flex-col items-center gap-1 py-1" href="search.html">
+<iconify-icon class="text-ink-300" icon="solar:magnifer-linear" width="21"></iconify-icon>
+<span class="text-[10px] text-ink-500">搜索</span>
+</a>
+<a class="flex flex-col items-center gap-1 py-1" href="publish.html">
+<iconify-icon class="text-ink-300" icon="solar:add-circle-linear" width="21"></iconify-icon>
+<span class="text-[10px] text-ink-500">发布</span>
+</a>
+<a class="flex flex-col items-center gap-1 py-1" href="my-posts.html">
+<iconify-icon class="text-ink-300" icon="solar:user-circle-linear" width="21"></iconify-icon>
+<span class="text-[10px] text-ink-500">我的</span>
+</a>
+</div>
+</nav>
+</div>
+<script>
+  var currentFilter = 'all';
+
+  function applyFilter() {
+    var cards = document.querySelectorAll('.item-card');
+    var visible = 0;
+    cards.forEach(function (card) {
+      var match = currentFilter === 'all' || card.getAttribute('data-type') === currentFilter;
+      if (match) {
+        card.classList.remove('hidden');
+        visible++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+
+    document.getElementById('emptyState').classList.toggle('hidden', visible !== 0);
+    document.getElementById('listCount').textContent = '共 ' + visible + ' 条';
+
+    var hint = document.getElementById('filterHint');
+    if (currentFilter === 'all') {
+      hint.textContent = '正在展示全部失物与招领信息';
+    } else if (currentFilter === 'lost') {
+      hint.textContent = '正在展示同学发布的失物信息（寻找中 / 已找回）';
+    } else {
+      hint.textContent = '正在展示同学发布的招领信息（待认领 / 已归还）';
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(function (btn) {
+      var active = btn.getAttribute('data-filter') === currentFilter;
+      if (active) {
+        btn.classList.add('bg-white', 'text-coral-600', 'shadow-softer');
+        btn.classList.remove('text-ink-500');
+      } else {
+        btn.classList.remove('bg-white', 'text-coral-600', 'shadow-softer');
+        btn.classList.add('text-ink-500');
+      }
+    });
+  }
+
+  function switchFilter(type) {
+    currentFilter = type;
+    applyFilter();
+  }
+
+  applyFilter();
+</script>
+</body>
+</html>

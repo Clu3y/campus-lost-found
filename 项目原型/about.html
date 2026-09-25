@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html class="w-full h-full overflow-hidden" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>校园失物招领 · 设计说明与流程</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          coral: {
+            50: '#FFF7F5',
+            100: '#FDECE8',
+            200: '#F9D4CC',
+            300: '#F2B3A7',
+            400: '#EC9686',
+            500: '#E37D6C',
+            600: '#C96351',
+            700: '#A24B3C',
+            800: '#7A382D',
+            900: '#54261E'
+          },
+          ink: {
+            900: '#332C2A',
+            700: '#5C514D',
+            500: '#8A7C77',
+            300: '#BEB2AD'
+          }
+        },
+        borderRadius: {
+          card: '12px'
+        },
+        boxShadow: {
+          soft: '0 4px 16px rgba(214, 160, 148, 0.14)',
+          softer: '0 2px 8px rgba(214, 160, 148, 0.10)'
+        }
+      }
+    }
+  };
+</script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; }
+</style>
+</head>
+<body class="w-full h-full m-0 overflow-hidden flex items-center justify-center bg-neutral-100 text-ink-900">
+<div class="w-full h-full max-w-[393px] max-h-[852px] bg-coral-50 flex flex-col overflow-hidden relative shadow-xl">
+<!-- 顶部导航 -->
+<header class="shrink-0 bg-white px-4 py-3 border-b border-coral-100 flex items-center gap-3">
+<a class="w-8 h-8 rounded-full bg-coral-50 flex items-center justify-center" href="home.html">
+<iconify-icon class="text-ink-700" icon="solar:alt-arrow-left-linear" width="18"></iconify-icon>
+</a>
+<h1 class="text-[16px] font-semibold">设计说明与流程</h1>
+</header>
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
+<!-- 产品概述 -->
+<section class="px-5 pt-4">
+<div class="rounded-card bg-white shadow-softer p-4">
+<span class="inline-flex items-center gap-1.5 rounded-full bg-coral-50 px-2.5 py-1 text-[11px] text-coral-600">
+<iconify-icon icon="solar:compass-linear" width="13"></iconify-icon>
+          教学演示原型 · 版本 v1.0
+        </span>
+<h2 class="mt-2.5 text-[17px] font-bold leading-snug">校园失物招领</h2>
+<p class="mt-2 text-[12.5px] leading-relaxed text-ink-700">
+          一个供同校学生集中发布、浏览、搜索失物与招领信息的小程序。所有示例数据与联系方式均为虚构，
+          仅用于演示交互流程。
+        </p>
+</div>
+</section>
+<!-- 解决的问题 -->
+<section class="px-5 mt-3">
+<div class="rounded-card bg-white shadow-softer p-4">
+<h3 class="text-[14px] font-semibold flex items-center gap-2">
+<iconify-icon class="text-coral-500" icon="solar:target-linear" width="17"></iconify-icon>
+          产品解决的问题
+        </h3>
+<div class="mt-3 space-y-2.5">
+<div class="rounded-[10px] bg-coral-50 px-3.5 py-3">
+<p class="text-[12.5px] font-medium">信息分散、容易被覆盖</p>
+<p class="mt-1 text-[11.5px] leading-relaxed text-ink-700">
+              寻物与招领消息散落在班级群、宿舍群和朋友圈，很快被新消息顶下去，需要的人翻不到。
+            </p>
+</div>
+<div class="rounded-[10px] bg-coral-50 px-3.5 py-3">
+<p class="text-[12.5px] font-medium">失主与拾到者不在同一个群</p>
+<p class="mt-1 text-[11.5px] leading-relaxed text-ink-700">
+              双方信息很难相遇。集中发布到同一入口后，一次发布即可被全校同学看到。
+            </p>
+</div>
+<div class="rounded-[10px] bg-coral-50 px-3.5 py-3">
+<p class="text-[12.5px] font-medium">状态不清，持续被打扰</p>
+<p class="mt-1 text-[11.5px] leading-relaxed text-ink-700">
+              物品找回或归还后信息仍在流传。发布者可更新状态，结束后信息会显著标注。
+            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- 主要用户与需求 -->
+<section class="px-5 mt-3">
+<div class="rounded-card bg-white shadow-softer p-4">
+<h3 class="text-[14px] font-semibold flex items-center gap-2">
+<iconify-icon class="text-coral-500" icon="solar:users-group-rounded-linear" width="17"></iconify-icon>
+          主要用户与需求
+        </h3>
+<div class="mt-3 space-y-2.5">
+<div class="flex items-start gap-3">
+<span class="w-8 h-8 shrink-0 rounded-full bg-coral-100 flex items-center justify-center">
+<iconify-icon class="text-coral-600" icon="solar:user-heart-linear" width="16"></iconify-icon>
+</span>
+<div>
+<p class="text-[12.5px] font-medium">失主</p>
+<p class="text-[11.5px] leading-relaxed text-ink-700">
+                丢失校园卡、钥匙、水杯、耳机等，需要发布寻物信息，并按名称或地点搜索线索。
+              </p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="w-8 h-8 shrink-0 rounded-full bg-coral-100 flex items-center justify-center">
+<iconify-icon class="text-coral-600" icon="solar:hand-heart-linear" width="16"></iconify-icon>
+</span>
+<div>
+<p class="text-[12.5px] font-medium">拾到者</p>
+<p class="text-[11.5px] leading-relaxed text-ink-700">
+                在教学楼、食堂、体育馆等地捡到物品，希望失主容易找到，归还后更新状态。
+              </p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="w-8 h-8 shrink-0 rounded-full bg-coral-100 flex items-center justify-center">
+<iconify-icon class="text-coral-600" icon="solar:eye-linear" width="16"></iconify-icon>
+</span>
+<div>
+<p class="text-[12.5px] font-medium">浏览者</p>
+<p class="text-[11.5px] leading-relaxed text-ink-700">
+                看到可能属于同学的物品，快速辨认信息并转告当事人。
+              </p>
+</div>
+</div>
+</div>
+<p class="mt-3 rounded-[10px] bg-coral-50 px-3.5 py-2.5 text-[11.5px] leading-relaxed text-ink-700">
+          共同关心的信息是：物品是什么、在哪里丢失或拾到、何时发生、是否仍在寻找或待认领、如何联系发布者。
+        </p>
+</div>
+</section>
+<!-- 主要功能 -->
+<section class="px-5 mt-3">
+<div class="rounded-card bg-white shadow-softer p-4">
+<h3 class="text-[14px] font-semibold flex items-center gap-2">
+<iconify-icon class="text-coral-500" icon="solar:widget-5-linear" width="17"></iconify-icon>
+          主要功能
+        </h3>
+<div class="mt-3 grid grid-cols-2 gap-2.5">
+<a class="rounded-[10px] bg-coral-50 px-3.5 py-3" href="home.html">
+<p class="text-[12.5px] font-medium">信息浏览</p>
+<p class="mt-0.5 text-[11px] text-ink-500">失物 / 招领切换</p>
+</a>
+<a class="rounded-[10px] bg-coral-50 px-3.5 py-3" href="publish.html">
+<p class="text-[12.5px] font-medium">发布信息</p>
+<p class="mt-0.5 text-[11px] text-ink-500">寻物 / 招领表单</p>
+</a>
+<a class="rounded-[10px] bg-coral-50 px-3.5 py-3" href="search.html">
+<p class="text-[12.5px] font-medium">关键词搜索</p>
+<p class="mt-0.5 text-[11px] text-ink-500">多字段检索</p>
+</a>
+<a class="rounded-[10px] bg-coral-50 px-3.5 py-3" href="detail.html?id=1">
+<p class="text-[12.5px] font-medium">详情与联系</p>
+<p class="mt-0.5 text-[11px] text-ink-500">联系方式需点击</p>
+</a>
+<a class="rounded-[10px] bg-coral-50 px-3.5 py-3" href="my-posts.html">
+<p class="text-[12.5px] font-medium">我的发布</p>
+<p class="mt-0.5 text-[11px] text-ink-500">查看与管理</p>
+</a>
+<a class="rounded-[10px] bg-coral-50 px-3.5 py-3" href="my-posts.html">
+<p class="text-[12.5px] font-medium">状态更新</p>
+<p class="mt-0.5 text-[11px] text-ink-500">已找回 / 已归还</p>
+</a>
+</div>
+</div>
+</section>
+<!-- 信息类型与状态 -->
+<section class="px-5 mt-3">
+<div class="rounded-card bg-white shadow-softer p-4">
+<h3 class="text-[14px] font-semibold flex items-center gap-2">
+<iconify-icon class="text-coral-500" icon="solar:refresh-circle-linear" width="17"></iconify-icon>
+          信息类型与状态流转
+        </h3>
+<div class="mt-3 space-y-2.5">
+<div class="rounded-[10px] border border-coral-100 px-3.5 py-3">
+<div class="flex items-center gap-2">
+<span class="rounded-full bg-coral-100 text-coral-700 px-2 py-0.5 text-[10.5px] font-medium">寻物</span>
+<span class="text-[11.5px] text-ink-500">用户丢失物品，希望获得线索</span>
+</div>
+<div class="mt-2.5 flex items-center gap-2">
+<span class="rounded-full bg-amber-50 text-amber-600 px-2.5 py-1 text-[10.5px] font-medium">寻找中</span>
+<iconify-icon class="text-ink-300" icon="solar:arrow-right-linear" width="14"></iconify-icon>
+<span class="rounded-full bg-emerald-50 text-emerald-600 px-2.5 py-1 text-[10.5px] font-medium">已找回</span>
+</div>
+</div>
+<div class="rounded-[10px] border border-coral-100 px-3.5 py-3">
+<div class="flex items-center gap-2">
+<span class="rounded-full bg-emerald-50 text-emerald-600 px-2 py-0.5 text-[10.5px] font-medium">招领</span>
+<span class="text-[11.5px] text-ink-500">用户拾到物品，等待失主认领</span>
+</div>
+<div class="mt-2.5 flex items-center gap-2">
+<span class="rounded-full bg-sky-50 text-sky-600 px-2.5 py-1 text-[10.5px] font-medium">待认领</span>
+<iconify-icon class="text-ink-300" icon="solar:arrow-right-linear" width="14"></iconify-icon>
+<span class="rounded-full bg-neutral-100 text-ink-500 px-2.5 py-1 text-[10.5px] font-medium">已归还</span>
+</div>
+</div>
+</div>
+<p class="mt-3 rounded-[10px] bg-coral-50 px-3.5 py-2.5 text-[11.5px] leading-relaxed text-ink-700">
+          只有发布者本人可在“我的发布”中修改状态；结束状态的信息仍可查看，但会显著标注，避免继续联系造成打扰。
+        </p>
+</div>
+</section>
+<!-- 流程一 -->
+<section class="px-5 mt-3">
+<div class="rounded-card bg-white shadow-softer p-4">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-coral-500 text-white text-[11px] font-semibold flex items-center justify-center">1</span>
+<h3 class="text-[14px] font-semibold">流程一：浏览 / 搜索 → 联系发布者</h3>
+</div>
+<div class="mt-3.5 space-y-1.5">
+<div class="flex items-center gap-3 rounded-[10px] bg-coral-50 px-3.5 py-2.5">
+<iconify-icon class="text-coral-600 shrink-0" icon="solar:home-smile-linear" width="17"></iconify-icon>
+<div>
+<p class="text-[12px] font-medium">进入首页</p>
+<p class="text-[11px] text-ink-500">按“失物 / 招领”切换，浏览近期信息</p>
+</div>
+</div>
+<div class="flex justify-center">
+<iconify-icon class="text-coral-300" icon="solar:arrow-down-linear" width="16"></iconify-icon>
+</div>
+<div class="flex items-center gap-3 rounded-[10px] bg-coral-50 px-3.5 py-2.5">
+<iconify-icon class="text-coral-600 shrink-0" icon="solar:magnifer-linear" width="17"></iconify-icon>
+<div>
+<p class="text-[12px] font-medium">或进入搜索页</p>
+<p class="text-[11px] text-ink-500">输入“校园卡”等关键词并筛选类型</p>
+</div>
+</div>
+<div class="flex justify-center">
+<iconify-icon class="text-coral-300" icon="solar:arrow-down-linear" width="16"></iconify-icon>
+</div>
+<div class="flex items-center gap-3 rounded-[10px] bg-coral-50 px-3.5 py-2.5">
+<iconify-icon class="text-coral-600 shrink-0" icon="solar:document-text-linear" width="17"></iconify-icon>
+<div>
+<p class="text-[12px] font-medium">查看信息详情</p>
+<p class="text-[11px] text-ink-500">核对物品照片、地点、时间与描述</p>
+</div>
+</div>
+<div class="flex justify-center">
+<iconify-icon class="text-coral-300" icon="solar:arrow-down-linear" width="16"></iconify-icon>
+</div>
+<div class="flex items-center gap-3 rounded-[10px] bg-coral-200/60 px-3.5 py-2.5">
+<iconify-icon class="text-coral-700 shrink-0" icon="solar:phone-calling-linear" width="17"></iconify-icon>
+<div>
+<p class="text-[12px] font-semibold text-coral-700">点击“联系发布者”</p>
+<p class="text-[11px] text-coral-600">弹窗中可见联系方式，自主沟通交接</p>
+</div>
+</div>
+</div>
+<div class="mt-3.5 flex gap-2.5">
+<a class="flex-1 rounded-[10px] border border-coral-200 py-2.5 text-[12px] font-medium text-coral-600 text-center" href="home.html">去首页</a>
+<a class="flex-1 rounded-[10px] bg-coral-500 py-2.5 text-[12px] font-semibold text-white text-center" href="search.html">去搜索</a>
+</div>
+</div>
+</section>
+<!-- 流程二 -->
+<section class="px-5 mt-3">
+<div class="rounded-card bg-white shadow-softer p-4">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-coral-500 text-white text-[11px] font-semibold flex items-center justify-center">2</span>
+<h3 class="text-[14px] font-semibold">流程二：填写信息 → 发布成功</h3>
+</div>
+<div class="mt-3.5 space-y-1.5">
+<div class="flex items-center gap-3 rounded-[10px] bg-coral-50 px-3.5 py-2.5">
+<iconify-icon class="text-coral-600 shrink-0" icon="solar:add-circle-linear" width="17"></iconify-icon>
+<div>
+<p class="text-[12px] font-medium">点击“发布信息”</p>
+<p class="text-[11px] text-ink-500">从首页悬浮按钮或底部导航进入</p>
+</div>
+</div>
+<div class="flex justify-center">
+<iconify-icon class="text-coral-300" icon="solar:arrow-down-linear" width="16"></iconify-icon>
+</div>
+<div class="flex items-center gap-3 rounded-[10px] bg-coral-50 px-3.5 py-2.5">
+<iconify-icon class="text-coral-600 shrink-0" icon="solar:document-add-linear" width="17"></iconify-icon>
+<div>
+<p class="text-[12px] font-medium">选择“发布寻物 / 发布招领”</p>
+<p class="text-[11px] text-ink-500">地点与时间字段会随类型自动变化</p>
+</div>
+</div>
+<div class="flex justify-center">
+<iconify-icon class="text-coral-300" icon="solar:arrow-down-linear" width="16"></iconify-icon>
+</div>
+<div class="flex items-center gap-3 rounded-[10px] bg-coral-50 px-3.5 py-2.5">
+<iconify-icon class="text-coral-600 shrink-0" icon="solar:pen-new-square-linear" width="17"></iconify-icon>
+<div>
+<p class="text-[12px] font-medium">填写必填项与描述</p>
+<p class="text-[11px] text-ink-500">名称、类别、地点、时间、联系方式</p>
+</div>
+</div>
+<div class="flex justify-center">
+<iconify-icon class="text-coral-300" icon="solar:arrow-down-linear" width="16"></iconify-icon>
+</div>
+<div class="flex items-center gap-3 rounded-[10px] bg-coral-50 px-3.5 py-2.5">
+<iconify-icon class="text-coral-600 shrink-0" icon="solar:danger-triangle-linear" width="17"></iconify-icon>
+<div>
+<p class="text-[12px] font-medium">缺项时给出提示</p>
+<p class="text-[11px] text-ink-500">弹窗列出待补充字段，就地标红</p>
+</div>
+</div>
+<div class="flex justify-center">
+<iconify-icon class="text-coral-300" icon="solar:arrow-down-linear" width="16"></iconify-icon>
+</div>
+<div class="flex items-center gap-3 rounded-[10px] bg-coral-200/60 px-3.5 py-2.5">
+<iconify-icon class="text-coral-700 shrink-0" icon="solar:check-circle-bold" width="17"></iconify-icon>
+<div>
+<p class="text-[12px] font-semibold text-coral-700">进入“发布成功”页</p>
+<p class="text-[11px] text-coral-600">可查看我的发布，或返回首页继续浏览</p>
+</div>
+</div>
+<div class="flex justify-center">
+<iconify-icon class="text-coral-300" icon="solar:arrow-down-linear" width="16"></iconify-icon>
+</div>
+<div class="flex items-center gap-3 rounded-[10px] bg-coral-50 px-3.5 py-2.5">
+<iconify-icon class="text-coral-600 shrink-0" icon="solar:refresh-square-linear" width="17"></iconify-icon>
+<div>
+<p class="text-[12px] font-medium">在“我的发布”更新状态</p>
+<p class="text-[11px] text-ink-500">改为“已找回 / 已归还”并立即看到更新</p>
+</div>
+</div>
+</div>
+<div class="mt-3.5 flex gap-2.5">
+<a class="flex-1 rounded-[10px] bg-coral-500 py-2.5 text-[12px] font-semibold text-white text-center" href="publish.html">去发布</a>
+<a class="flex-1 rounded-[10px] border border-coral-200 py-2.5 text-[12px] font-medium text-coral-600 text-center" href="my-posts.html">我的发布</a>
+</div>
+</div>
+</section>
+<!-- 页面清单 -->
+<section class="px-5 mt-3">
+<div class="rounded-card bg-white shadow-softer p-4">
+<h3 class="text-[14px] font-semibold flex items-center gap-2">
+<iconify-icon class="text-coral-500" icon="solar:layers-minimalistic-linear" width="17"></iconify-icon>
+          页面清单与跳转关系
+        </h3>
+<div class="mt-3 space-y-2">
+<a class="flex items-center gap-3 rounded-[10px] bg-coral-50 px-3.5 py-2.5" href="home.html">
+<span class="text-[11px] text-coral-600 font-medium shrink-0">home.html</span>
+<span class="text-[11.5px] text-ink-700">首页：浏览与类型切换</span>
+</a>
+<a class="flex items-center gap-3 rounded-[10px] bg-coral-50 px-3.5 py-2.5" href="search.html">
+<span class="text-[11px] text-coral-600 font-medium shrink-0">search.html</span>
+<span class="text-[11.5px] text-ink-700">搜索页：关键词与筛选</span>
+</a>
+<a class="flex items-center gap-3 rounded-[10px] bg-coral-50 px-3.5 py-2.5" href="detail.html?id=1">
+<span class="text-[11px] text-coral-600 font-medium shrink-0">detail.html</span>
+<span class="text-[11.5px] text-ink-700">详情页：信息与联系发布者</span>
+</a>
+<a class="flex items-center gap-3 rounded-[10px] bg-coral-50 px-3.5 py-2.5" href="publish.html">
+<span class="text-[11px] text-coral-600 font-medium shrink-0">publish.html</span>
+<span class="text-[11.5px] text-ink-700">发布页：表单与校验</span>
+</a>
+<a class="flex items-center gap-3 rounded-[10px] bg-coral-50 px-3.5 py-2.5" href="publish-success.html">
+<span class="text-[11px] text-coral-600 font-medium shrink-0">publish-success.html</span>
+<span class="text-[11.5px] text-ink-700">发布成功页：结果与下一步</span>
+</a>
+<a class="flex items-center gap-3 rounded-[10px] bg-coral-50 px-3.5 py-2.5" href="my-posts.html">
+<span class="text-[11px] text-coral-600 font-medium shrink-0">my-posts.html</span>
+<span class="text-[11.5px] text-ink-700">我的发布：状态更新</span>
+</a>
+</div>
+</div>
+</section>
+<!-- 边界说明 -->
+<section class="px-5 mt-3 pb-6">
+<div class="rounded-card bg-white border border-coral-100 px-4 py-3.5 flex gap-2.5">
+<iconify-icon class="text-coral-500 mt-0.5 shrink-0" icon="solar:info-circle-linear" width="16"></iconify-icon>
+<p class="text-[11px] leading-relaxed text-ink-700">
+          原型阶段暂不包含：在线聊天、地图定位、支付悬赏、学校身份认证、智能图片识别与后台审核。
+          联系方式仅在弹窗中演示，不涉及真实拨号或发送消息。
+        </p>
+</div>
+</section>
+</main>
+<!-- 底部返回 -->
+<div class="shrink-0 bg-white border-t border-coral-100 px-5 pt-3 pb-4 flex gap-3">
+<a class="flex-1 rounded-card border border-coral-200 text-coral-600 text-[13px] font-medium text-center py-3" href="home.html">
+      返回首页
+    </a>
+<a class="flex-1 rounded-card bg-coral-500 text-white text-[13px] font-semibold text-center py-3 shadow-soft" href="publish.html">
+      去发布信息
+    </a>
+</div>
+</div>
+</body>
+</html>
